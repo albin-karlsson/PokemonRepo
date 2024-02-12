@@ -1,0 +1,39 @@
+﻿@page
+@using PokemonRepo.Models.ViewModels
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<form method="post">
+    <input type="text" asp-for="PokemonName" placeholder="Pokémon name"/>
+    <input type="submit" value="Search"/>
+</form>
+
+@if(Model.Pokemon != null)
+{
+    <h1>@Model.Pokemon.Name</h1>
+    <div>
+        <label>Height:</label>
+        <span>@Model.Pokemon.Height</span>
+    </div>
+    <div>
+        <label>Weight</label>
+        <span>@Model.Pokemon.Weight</span>
+    </div>
+    <h2>Types</h2>
+    @foreach(string type in Model.Pokemon.Types!)
+    {
+        <h3>@type</h3>
+    }
+    <h2>Abilities</h2>
+    @foreach (AbilityViewModel ability in Model.Pokemon.Abilities!)
+    {
+        <h3>@ability.Name</h3>
+    }
+}
+else
+{
+    <h1>No Pokémon data to show.</h1>
+    <h2>Try searching for a Pokémon above.</h2>
+}
